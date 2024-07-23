@@ -27,7 +27,9 @@ jobs:
       - name: echo inputs
         run: echo ${{ inputs.title }} ${{ inputs.body }}
       - name: Create issue using REST API
-        run: |
+        env:
+          ARGS: ${{ inputs.title }} ${{ inputs.body }}
+        run: echo "$ARGS"
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/issues \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
